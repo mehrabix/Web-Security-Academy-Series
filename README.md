@@ -1,2 +1,2 @@
 # Web-Security Academy
-Portswigger Academy SQL injection Lab series
+Portswigger Academy Lab series
