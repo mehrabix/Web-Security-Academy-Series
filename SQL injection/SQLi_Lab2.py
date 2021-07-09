@@ -11,7 +11,7 @@ proxies = {
 }
  
 def get_csrf_token(s,url):       
-    r = s.get(url, verify=False, proxies=proxies)    #SSL certificate verification
+    r = s.get(url, verify=False, proxies=proxies)   
     soup = BeautifulSoup(r.text, 'html.parser')
     csrf = soup.find("input")['value']
     print(csrf)
